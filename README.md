@@ -90,3 +90,9 @@ erDiagram
     Onibus ||--o{ Onibus_Rotas : "atua_em"
     Rotas ||--o{ Onibus_Rotas : "recebe"
 ```
+<br>
+<hr>
+<br>
+
+## Figma
+https://www.figma.com/design/8dnbi4e3bP7HmgR3Ew6EHA/Design-PI?node-id=0-1&p=f&t=x6sdGn7aUDPXajC9-0
