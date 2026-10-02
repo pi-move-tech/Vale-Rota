@@ -96,3 +96,89 @@ erDiagram
 
 ## Figma
 https://www.figma.com/design/8dnbi4e3bP7HmgR3Ew6EHA/Design-PI?node-id=0-1&p=f&t=x6sdGn7aUDPXajC9-0
+<br>
+<hr>
+<br>
+## Diagrama de casos de uso
+
+```mermaid
+flowchart TB
+    subgraph sistema["Sistema de Gestão de Rotas"]
+        direction LR
+
+        subgraph grupoUsuario["Usuário"]
+            direction TB
+            usuario@{ shape: person, label: "Usuário" }
+            criarConta(["Criar conta"])
+            visualizarRotas(["Visualizar rotas"])
+            favoritarRota(["Favoritar rota"])
+            acompanharOnibus(["Acompanhar ônibus"])
+            tempoAtraso(["Visualizar tempo esperado de atraso"])
+            receberNotificacoes(["Receber notificações"])
+            usuario --- criarConta
+            usuario --- visualizarRotas
+            usuario --- favoritarRota
+            usuario --- acompanharOnibus
+            usuario --- tempoAtraso
+            usuario --- receberNotificacoes
+        end
+
+        subgraph grupoMotorista["Motorista"]
+            direction TB
+            motorista@{ shape: person, label: "Motorista" }
+            dirigirOnibus(["Dirigir ônibus"])
+            reportarAtraso(["Reportar atraso"])
+            iniciarEncerrar(["Iniciar e encerrar rota"])
+            motorista --- dirigirOnibus
+            motorista --- reportarAtraso
+            motorista --- iniciarEncerrar
+        end
+
+        subgraph grupoEmpresa["Empresa de ônibus"]
+            direction TB
+            empresa@{ shape: person, label: "Empresa de ônibus" }
+            fornecerHorarios(["Fornecer horários"])
+            fornecerOnibus(["Fornecer ônibus"])
+            acompanharTempoReal(["Acompanhar em tempo real"])
+            alterarRotas(["Alterar rotas"])
+            empresa --- fornecerHorarios
+            empresa --- fornecerOnibus
+            empresa --- acompanharTempoReal
+            empresa --- alterarRotas
+        end
+
+        subgraph grupoAdmin["Administrador"]
+            direction TB
+            administrador@{ shape: person, label: "Administrador" }
+            gerenciarRotas(["Gerenciar rotas"])
+            atualizarSistema(["Atualizar sistema"])
+            monitorar(["Monitorar"])
+            suporte(["Suporte"])
+            administrador --- gerenciarRotas
+            administrador --- atualizarSistema
+            administrador --- monitorar
+            administrador --- suporte
+        end
+
+        subgraph grupoServicos["Serviços do sistema"]
+            direction TB
+            rastreamento(["Rastreamento"])
+            enviarNotificacoes(["Enviar notificações"])
+            gerarRelatorios(["Gerar relatórios"])
+        end
+    end
+
+    atualizarSistema -. "estende" .-> fornecerHorarios
+    acompanharTempoReal -. "estende" .-> monitorar
+    monitorar -. "inclui" .-> rastreamento
+    enviarNotificacoes -. "estende" .-> receberNotificacoes
+    rastreamento -. "inclui" .-> receberNotificacoes
+
+    classDef ator fill:#f0f9ff,stroke:#38bdf8,color:#0c4a6e
+    classDef caso fill:#f5f3ff,stroke:#a78bfa,color:#3b0764
+    classDef servico fill:#f0fdfa,stroke:#2dd4bf,color:#134e4a
+
+    class usuario,motorista,empresa,administrador ator
+    class criarConta,visualizarRotas,favoritarRota,acompanharOnibus,tempoAtraso,receberNotificacoes,dirigirOnibus,reportarAtraso,iniciarEncerrar,fornecerHorarios,fornecerOnibus,acompanharTempoReal,alterarRotas,gerenciarRotas,atualizarSistema,monitorar,suporte caso
+    class rastreamento,enviarNotificacoes,gerarRelatorios servico
+```
