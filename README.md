@@ -96,10 +96,16 @@ erDiagram
 
 ## Figma
 https://www.figma.com/design/8dnbi4e3bP7HmgR3Ew6EHA/Design-PI?node-id=0-1&p=f&t=x6sdGn7aUDPXajC9-0
+
 <br>
 <hr>
 <br>
+
 ## Diagrama de casos de uso
+
+<br>
+<hr>
+<br>
 
 ```mermaid
 flowchart TB
@@ -181,4 +187,182 @@ flowchart TB
     class usuario,motorista,empresa,administrador ator
     class criarConta,visualizarRotas,favoritarRota,acompanharOnibus,tempoAtraso,receberNotificacoes,dirigirOnibus,reportarAtraso,iniciarEncerrar,fornecerHorarios,fornecerOnibus,acompanharTempoReal,alterarRotas,gerenciarRotas,atualizarSistema,monitorar,suporte caso
     class rastreamento,enviarNotificacoes,gerarRelatorios servico
+```
+<br>
+<hr>
+<br>
+
+## Diagrama de Classes
+<br>
+<hr>
+<br>
+
+```mermaid
+classDiagram
+    direction TB
+
+    class Usuario {
+        +int id
+        +string nome
+        +string email
+        +string senha
+        +string tipo
+        +string cidade
+        +cadastrar()
+        +atualizarPerfil()
+        +definirCidadesInteresse()
+    }
+
+    class Favorito {
+        +int id
+        +string nome
+        +int usuarioId
+        +int rotaId
+        +salvarRota()
+        +remover()
+    }
+
+    class Alerta {
+        +int id
+        +int usuarioId
+        +int viagemId
+        +string tipo
+        +int limiteAtraso
+        +boolean ativo
+        +ativar()
+        +desativar()
+    }
+
+    class Reporte {
+        +int id
+        +int usuarioId
+        +int viagemId
+        +string tipo
+        +string descricao
+        +datetime data
+        +enviarReporte()
+        +visualizar()
+    }
+
+    class Empresa {
+        +int id
+        +string nome
+        +string telefone
+        +cadastrar()
+        +atualizarDados()
+    }
+
+    class Linha {
+        +int id
+        +string numero
+        +string origem
+        +string destino
+        +string duracaoEstimada
+        +int empresaId
+        +buscarHorarios()
+        +exibirRota()
+    }
+
+    class Rota {
+        +int id
+        +string origem
+        +string destino
+        +float distancia
+        +calcularDistancia()
+        +listarLinhas()
+    }
+
+    class Horario {
+        +int id
+        +int linhaId
+        +time horaSaida
+        +time horaChegada
+        +date data
+        +estaDisponivel()
+        +formatarHorario()
+    }
+
+    class Parada {
+        +int id
+        +string nome
+        +string cidade
+        +time horarioPrevisto
+        +int ordem
+        +exibirInformacoes()
+        +atualizarHorario()
+    }
+
+    class Viagem {
+        +int id
+        +int linhaId
+        +int horarioId
+        +string status
+        +int atraso
+        +datetime horaReal
+        +atualizarStatus()
+        +calcularAtraso()
+    }
+
+    Usuario "1" --> "0..*" Favorito : cria
+    Usuario "1" --> "0..*" Alerta : realiza
+    Usuario "1" --> "0..*" Reporte : configura
+    Alerta "0..*" --> "1" Viagem : monitora
+    Reporte "0..*" --> "1" Viagem : refere-se
+    Empresa "1" --> "0..*" Linha : opera
+    Linha "1" --> "0..*" Horario : possui
+    Linha "1" --> "0..*" Rota : possui
+    Viagem "1" --> "1..*" Horario : possui
+    Rota "1" --> "0..*" Parada : faz parte
+```
+    
+<br>
+<hr>
+<br>
+
+## Diagrama de Objetos
+
+<br>
+<hr>
+<br>
+
+```mermaid
+flowchart TB
+    subgraph usuarios["Usuários"]
+        U1["<b>usuario1 (Usuario)</b><br/><br/>id: 1<br/>nome: João Silva<br/>email: joao@email.com<br/>tipo: Estudante<br/>cidade: Registro"]
+        U2["<b>usuario2 (Usuario)</b><br/><br/>id: 2<br/>nome: Maria Oliveira<br/>email: maria@email.com<br/>tipo: Trabalhador<br/>cidade: Cajati"]
+    end
+
+    subgraph operacao["Operação de transporte"]
+        E1["<b>empresa1 (Empresa)</b><br/><br/>id: 1<br/>nome: Expresso Vale<br/>telefone: (13) 3821-0000"]
+        L1["<b>linha1 (Linha)</b><br/><br/>id: 1<br/>numero: 101<br/>origem: Registro<br/>destino: Cajati<br/>duracaoEstimada: 1h20<br/>empresaId: 1"]
+        H1["<b>horario1 (Horario)</b><br/><br/>id: 1<br/>linhaId: 1<br/>horaSaida: 07:15<br/>horaChegada: 08:35<br/>data: 03/10/2026"]
+        R1["<b>rota1 (Rota)</b><br/><br/>id: 1<br/>origem: Registro<br/>destino: Cajati<br/>distancia: 70.5"]
+        V1["<b>viagem1 (Viagem)</b><br/><br/>id: 1<br/>linhaId: 1<br/>horarioId: 1<br/>status: Atrasada<br/>atraso: 15<br/>horaReal: 07:30"]
+        P1["<b>parada1 (Parada)</b><br/><br/>id: 1<br/>nome: Terminal de Registro<br/>cidade: Registro<br/>horarioPrevisto: 07:15<br/>ordem: 1"]
+    end
+
+    subgraph notificacoes["Favoritos, alertas e reportes"]
+        F1["<b>favorito1 (Favorito)</b><br/><br/>id: 1<br/>nome: Ida para faculdade<br/>usuarioId: 1<br/>rotaId: 1"]
+        A1["<b>alerta1 (Alerta)</b><br/><br/>id: 1<br/>usuarioId: 1<br/>viagemId: 1<br/>tipo: Atraso<br/>limiteAtraso: 15<br/>ativo: true"]
+        RP1["<b>reporte1 (Reporte)</b><br/><br/>id: 1<br/>usuarioId: 1<br/>viagemId: 1<br/>tipo: Atraso<br/>descricao: Ônibus chegou 20 minutos atrasado.<br/>data: 03/10/2026"]
+    end
+
+    U1 -.-> F1
+    U1 -.-> A1
+    U1 -.-> RP1
+    E1 -.-> L1
+    L1 -.-> H1
+    L1 -.-> R1
+    H1 -.-> V1
+    R1 -.-> P1
+    V1 -.-> A1
+    V1 -.-> RP1
+
+    classDef usuario fill:#f0fdf4,stroke:#4ade80,color:#14532d
+    classDef transporte fill:#f0f9ff,stroke:#38bdf8,color:#0c4a6e
+    classDef notificacao fill:#f5f3ff,stroke:#a78bfa,color:#4c1d95
+
+    class U1,U2 usuario
+    class E1,L1,H1,R1,V1,P1 transporte
+    class F1,A1,RP1 notificacao
 ```
