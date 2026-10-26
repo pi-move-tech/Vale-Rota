@@ -10,15 +10,15 @@ body { background-color: #f4f6f5; }
 a { text-decoration: none; }
 
 /* "moldura" de celular centralizada */
-#app { max-width: 430px; min-height: 100vh; margin: 0 auto; background: #f4f6f5; position: relative; }
+#app {  margin: 0 auto; background: #f4f6f5; position: relative; }
 .conteudo { padding: 20px 20px 90px; }
 
-.topbar { background: var(--verde); color: #fff; padding: 16px 20px; display: flex; align-items: center; gap: 12px; min-height: 60px; font-size: 18px; }
+.topbar { background: var(--verde); color: #fff; padding: 16px 20px; display: flex; align-items: center; gap: 12px;  font-size: 18px; }
 .topbar strong { display: block; font-size: 19px; }
 .topbar small { font-size: 14px; }
 .topbar .voltar { color: #fff; font-size: 26px; line-height: 1; }
 
-.menu-inferior { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; display: flex; background: #fff; border-top: 1px solid var(--verde-claro); }
+.menu-inferior { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%;  display: flex; background: #fff; border-top: 1px solid var(--verde-claro); }
 .menu-inferior a { flex: 1; text-align: center; padding: 16px 4px; color: #6b7780; font-size: 13px; }
 .menu-inferior a.ativo { color: var(--verde); font-weight: 600; }
 
