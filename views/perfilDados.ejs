@@ -1,0 +1,18 @@
+<%- include ('partials/header.ejs', { titulo: 'Meus dados', voltar: '/perfil' }) %>
+
+<form action="/perfil/dados" method="POST">
+    <label for="nome">Nome</label>
+    <input type="text" name="nome" id="nome" class="form-control mb-3" value="<%= dados.nome %>" required>
+    <label for="email">E-mail</label>
+    <input type="email" id="email" class="form-control mb-3" value="<%= dados.email %>" disabled>
+    <label for="tipo">Perfil</label>
+    <select name="tipo" id="tipo" class="form-select mb-4">
+        <% ['Estudante - Registro SP', 'Trabalhador', 'Turista'].forEach(t => { %>
+            <option <%= t === dados.tipo ? 'selected' : '' %>><%= t %></option>
+        <% }) %>
+    </select>
+    <button type="submit" class="btn btn-vale w-100 mb-2" onclick="return confirm('Deseja mesmo alterar seus dados?')">SALVAR</button>
+    <a href="/perfil" class="btn btn-outline-vale w-100">Cancelar</a>
+</form>
+
+<%- include ('partials/footer.ejs', { ativo: 'perfil' }) %>

@@ -1,0 +1,36 @@
+<%- include ('partials/header.ejs', { titulo: 'Rotas Favoritas' }) %>
+
+<% if (!favoritos.length) { %>
+    <p class="texto-suave">Você ainda não tem rotas favoritas.</p>
+<% } %>
+
+<% favoritos.forEach(f => { const n = total[f.rota_id] || 0; %>
+    <div class="cartao position-relative">
+        <a class="estrela" href="/favoritos/excluir/<%= f.id %>" title="Remover dos favoritos" onclick="return confirm('Remover esta rota dos favoritos?')">★</a>
+        <a href="/horarios?origem=<%= f.rota.origem_id %>&destino=<%= f.rota.destino_id %>" class="link-cartao">
+            <%= f.rota.origem.nome %> &rarr; <%= f.rota.destino.nome %>
+        </a>
+        <div class="texto-suave"><%= f.observacao %></div>
+        <div class="texto-verde"><%= n %> alerta<%= n === 1 ? '' : 's' %> ativo<%= n === 1 ? '' : 's' %></div>
+    </div>
+<% }) %>
+
+<!-- Botão que abre/fecha o formulário (Bootstrap collapse) -->
+<button class="btn btn-tracejado w-100 mt-3" type="button" data-bs-toggle="collapse" data-bs-target="#novaFavorita">+ADICIONAR ROTA FAVORITA</button>
+<div class="collapse mt-3" id="novaFavorita">
+    <form action="/favoritos/adicionar" method="POST" class="cartao">
+        <label for="origem">Origem</label>
+        <select name="origem" id="origem" class="form-select mb-2" required>
+            <% cidades.forEach(c => { %><option value="<%= c.id %>" <%= c.nome === 'Registro' ? 'selected' : '' %>><%= c.nome %></option><% }) %>
+        </select>
+        <label for="destino">Destino</label>
+        <select name="destino" id="destino" class="form-select mb-2" required>
+            <% cidades.forEach(c => { %><option value="<%= c.id %>" <%= c.nome === 'Cajati' ? 'selected' : '' %>><%= c.nome %></option><% }) %>
+        </select>
+        <label for="observacao">Observação</label>
+        <input type="text" name="observacao" id="observacao" class="form-control mb-3" placeholder="Ex.: Uso diário - ida às 07h">
+        <button type="submit" class="btn btn-vale w-100">Salvar favorita</button>
+    </form>
+</div>
+
+<%- include ('partials/footer.ejs', { ativo: 'favoritos' }) %>

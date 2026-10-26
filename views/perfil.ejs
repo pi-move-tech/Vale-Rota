@@ -1,0 +1,17 @@
+<%- include ('partials/header.ejs', { titulo: 'Perfil' }) %>
+
+<div class="text-center my-4">
+    <div class="avatar"><%= usuario.nome.charAt(0).toUpperCase() %></div>
+    <strong class="d-block fs-5"><%= usuario.nome %></strong>
+    <span class="texto-suave"><%= usuario.tipo %></span>
+</div>
+
+<a class="cartao d-block item-menu" href="/perfil/notificacoes">🔔 &nbsp;Notificações</a>
+<a class="cartao d-block item-menu" href="/perfil/dados">👤 &nbsp;Meus dados</a>
+<a class="cartao d-block item-menu" href="/perfil/cidades">🌐 &nbsp;Cidades de interesse</a>
+<a class="cartao d-block item-menu" href="/perfil/relatar">✉️ &nbsp;Reportar problemas em uma linha</a>
+<a class="cartao d-block item-menu" href="/perfil/sobre">ℹ️ &nbsp;Sobre o Vale Rota</a>
+
+<a href="/sair" class="btn btn-sair w-100 mt-4">SAIR DA CONTA</a>
+
+<%- include ('partials/footer.ejs', { ativo: 'perfil' }) %>

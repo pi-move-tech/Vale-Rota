@@ -1,0 +1,44 @@
+<%- include ('partials/header.ejs', { titulo: 'Alertas' }) %>
+
+<div class="abas">
+    <a class="aba <%= aba === 'novo' ? 'ativa' : '' %>" href="/alertas?aba=novo">Configurar novo alerta</a>
+    <a class="aba <%= aba === 'ativos' ? 'ativa' : '' %>" href="/alertas?aba=ativos">Alertas ativos (<%= alertas.length %>)</a>
+</div>
+
+<% if (aba === 'novo') { %>
+    <% const selOrigem = selecionada ? selecionada.rota.origem_id : null;
+       const selDestino = selecionada ? selecionada.rota.destino_id : null; %>
+    <form action="/alertas/salvar" method="POST">
+        <label for="alOrigem">Origem</label>
+        <select id="alOrigem" class="form-select mb-2">
+            <% cidades.forEach(c => { %><option value="<%= c.id %>" <%= (selOrigem ? c.id === selOrigem : c.nome === 'Registro') ? 'selected' : '' %>><%= c.nome %></option><% }) %>
+        </select>
+        <label for="alDestino">Destino</label>
+        <select id="alDestino" class="form-select mb-2">
+            <% cidades.forEach(c => { %><option value="<%= c.id %>" <%= (selDestino ? c.id === selDestino : c.nome === 'Cajati') ? 'selected' : '' %>><%= c.nome %></option><% }) %>
+        </select>
+        <label for="alViagem">Viagem</label>
+        <!-- as opções são carregadas pelo JavaScript (js.js) via /api/viagens -->
+        <select name="viagem_id" id="alViagem" class="form-select mb-3" data-selecionada="<%= selecionada ? selecionada.id : '' %>" required></select>
+
+        <label>Avisar quando:</label>
+        <div class="d-flex gap-2 mb-4">
+            <% tipos.forEach((t, i) => { %>
+                <input type="checkbox" class="btn-check" name="tipos" value="<%= t %>" id="tipo<%= i %>" <%= i === 0 ? 'checked' : '' %>>
+                <label class="btn btn-chip" for="tipo<%= i %>"><%= t %></label>
+            <% }) %>
+        </div>
+        <button type="submit" class="btn btn-vale w-100">SALVAR ALERTA</button>
+    </form>
+<% } else { %>
+    <% if (!alertas.length) { %><p class="texto-suave">Nenhum alerta ativo.</p><% } %>
+    <% alertas.forEach(a => { const r = a.viagem.rota; %>
+        <div class="cartao position-relative">
+            <a class="estrela excluir" href="/alertas/excluir/<%= a.id %>" title="Excluir alerta" onclick="return confirm('Excluir este alerta?')">✕</a>
+            Linha <%= a.viagem.linha %> - <%= r.origem.nome %> &rarr; <%= r.destino.nome %> <%= a.viagem.horario %>
+            <div class="texto-verde">Avisar: <%= a.tipos.split(',').join(', ') %></div>
+        </div>
+    <% }) %>
+<% } %>
+
+<%- include ('partials/footer.ejs', { ativo: 'alertas' }) %>

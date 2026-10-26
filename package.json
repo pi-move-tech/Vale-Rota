@@ -1,0 +1,21 @@
+{
+  "name": "vale-rota",
+  "version": "1.0.0",
+  "description": "Vale Rota - horários e previsão de atrasos do transporte intermunicipal",
+  "license": "ISC",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx nodemon index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "mysql2": "^3.9.0",
+    "nodemon": "^3.0.1",
+    "sequelize": "^6.37.8"
+  }
+}

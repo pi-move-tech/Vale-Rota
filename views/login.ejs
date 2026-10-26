@@ -1,0 +1,20 @@
+<%- include ('partials/header.ejs') %>
+
+<div class="logo">
+    <div class="logo-icone">🚌</div>
+    <h1>Vale Rota</h1>
+</div>
+
+<!-- action: para onde os dados serão enviados | method="POST": envia os dados de forma oculta -->
+<form action="/login" method="POST" id="formLogin">
+    <input type="email" name="email" class="form-control mb-2" placeholder="E-mail" required>
+    <input type="password" name="senha" class="form-control mb-1" placeholder="Senha" required>
+    <div class="text-end mb-3"><a href="#" class="small" onclick="alert('Recuperação de senha ainda não disponível nesta demonstração.'); return false;">Esqueci minha senha</a></div>
+    <button type="submit" class="btn btn-vale w-100 mb-3">ENTRAR</button>
+    <div class="ou">ou</div>
+    <!-- formaction manda o mesmo formulário para outra rota -->
+    <button type="submit" formaction="/cadastrar" class="btn btn-outline-vale w-100 mb-2">CRIAR CONTA</button>
+    <a href="/visitante" class="btn btn-visitante w-100">Entrar como visitante</a>
+</form>
+
+<%- include ('partials/footer.ejs') %>

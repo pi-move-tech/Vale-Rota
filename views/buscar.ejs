@@ -1,0 +1,43 @@
+<%- include ('partials/header.ejs', { titulo: 'Para onde vamos?', saudacao: true }) %>
+
+<form action="/horarios" method="GET">
+    <label for="origem">Origem</label>
+    <select name="origem" id="origem" class="form-select mb-3" required>
+        <% cidades.forEach(c => { %>
+            <option value="<%= c.id %>" <%= c.nome === 'Registro' ? 'selected' : '' %>><%= c.nome %></option>
+        <% }) %>
+    </select>
+
+    <label for="destino">Destino</label>
+    <select name="destino" id="destino" class="form-select mb-3" required>
+        <% cidades.forEach(c => { %>
+            <option value="<%= c.id %>" <%= c.nome === 'Cajati' ? 'selected' : '' %>><%= c.nome %></option>
+        <% }) %>
+    </select>
+
+    <div class="row g-2 mb-3">
+        <div class="col-6">
+            <input type="date" name="data" class="form-control" value="<%= hoje %>">
+        </div>
+        <div class="col-6">
+            <select name="periodo" class="form-select">
+                <option value="">Qualquer horário</option>
+                <option value="manha">Manhã</option>
+                <option value="tarde">Tarde</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-vale w-100">BUSCAR VIAGENS</button>
+</form>
+
+<% if (frequentes.length) { %>
+<h5 class="mt-4">Rotas Frequentes</h5>
+<% frequentes.forEach(f => { %>
+    <a class="cartao d-block" href="/horarios?origem=<%= f.rota.origem_id %>&destino=<%= f.rota.destino_id %>">
+        <%= f.rota.origem.nome %> &rarr; <%= f.rota.destino.nome %>
+        <div class="texto-suave">Usado <%= f.total %> <%= f.total == 1 ? 'vez' : 'vezes' %></div>
+    </a>
+<% }) %>
+<% } %>
+
+<%- include ('partials/footer.ejs', { ativo: 'buscar' }) %>

@@ -1,0 +1,24 @@
+<%- include ('partials/header.ejs', { titulo: 'Reportar problema', voltar: '/perfil' }) %>
+
+<form action="/perfil/relatar" method="POST">
+    <label for="linha">Linha</label>
+    <select name="linha" id="linha" class="form-select mb-3">
+        <option>Linha 203 - Valle Sul</option>
+        <option>Linha 108 - Princesa dos Campos</option>
+    </select>
+    <label for="descricao">Descrição</label>
+    <textarea name="descricao" id="descricao" rows="4" class="form-control mb-3" placeholder="Ex.: o ônibus não passou no horário" required></textarea>
+    <button type="submit" class="btn btn-vale w-100">ENVIAR</button>
+</form>
+
+<% if (relatos.length) { %>
+<h5 class="mt-4">Enviados</h5>
+<% relatos.forEach(r => { %>
+    <div class="cartao">
+        <%= r.linha %>
+        <div class="texto-suave"><%= r.descricao %> · <%= new Date(r.createdAt).toLocaleDateString('pt-BR') %></div>
+    </div>
+<% }) %>
+<% } %>
+
+<%- include ('partials/footer.ejs', { ativo: 'perfil' }) %>

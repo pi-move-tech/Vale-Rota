@@ -1,0 +1,37 @@
+<%- include ('partials/header.ejs', { titulo: 'Linha ' + viagem.linha + ' - ' + viagem.horario, voltar: 'javascript:history.back()' }) %>
+
+<!-- Mapa ilustrativo da rota -->
+<svg viewBox="0 0 300 150" class="mapa" role="img" aria-label="Mapa da rota com paradas">
+    <path d="M30 120 Q80 60 110 90 T180 60 T270 25" fill="none" stroke="#24506b" stroke-width="4" stroke-dasharray="8 6"/>
+    <circle cx="30" cy="120" r="11" fill="#24506b"/>
+    <circle cx="140" cy="82" r="11" fill="#e8a92b"/>
+    <circle cx="270" cy="25" r="11" fill="#176b5b"/>
+</svg>
+
+<% const s = h.status(viagem.atraso); %>
+<div class="previsao <%= s.classe %>">
+    <small><strong>PREVISÃO DE ATRASO</strong></small>
+    <div class="previsao-valor"><%= viagem.atraso ? '+' + viagem.atraso + ' minutos' : 'Sem atraso previsto' %></div>
+    <small>Baseado em 42 viagens nas últimas 4 semanas</small>
+</div>
+
+<h5 class="mt-4">Paradas da Viagem</h5>
+<% viagem.paradas.forEach((p, i) => {
+    const cor = i === 0 ? '#24506b' : (i === viagem.paradas.length - 1 ? '#176b5b' : '#e8a92b'); %>
+    <div class="parada">
+        <span class="ponto" style="background: <%= cor %>"></span>
+        <div>
+            <%= p.nome %>
+            <div class="texto-suave"><%= i === 0 ? 'Partida ' : 'Chegada prevista ' %><%= h.somarMinutos(viagem.horario, p.minutos + (i === 0 ? 0 : viagem.atraso)) %></div>
+        </div>
+    </div>
+<% }) %>
+
+<% if (!usuario.visitante) { %>
+    <a class="btn btn-outline-vale w-100 mb-2" href="/favoritos/alternar/<%= viagem.rota_id %>">
+        <%= favorito ? '★ Remover dos favoritos' : '☆ Favoritar esta rota' %>
+    </a>
+    <a class="btn btn-vale w-100" href="/alertas?viagem=<%= viagem.id %>">CRIAR ALERTA PARA ESTA VIAGEM</a>
+<% } %>
+
+<%- include ('partials/footer.ejs', { ativo: 'buscar' }) %>

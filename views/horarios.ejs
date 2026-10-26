@@ -1,0 +1,33 @@
+<%- include ('partials/header.ejs', { titulo: rota.origem.nome + ' → ' + rota.destino.nome, voltar: '/buscar' }) %>
+
+<p class="texto-suave"><%= data.split('-').reverse().join('/') %></p>
+
+<% if (!viagens.length) { %>
+    <p class="texto-suave">Nenhuma viagem encontrada para esse filtro.</p>
+<% } %>
+
+<% viagens.forEach(v => { const s = h.status(v.atraso); %>
+    <a class="cartao viagem d-block" href="/rota/<%= v.id %>" style="border-left: 14px solid <%= s.cor %>">
+        <span class="etiqueta <%= s.classe %>"><%= s.texto %></span>
+        <strong class="hora"><%= v.horario %></strong>
+        <div class="texto-suave"><%= v.empresa %> - Linha <%= v.linha %></div>
+        <div class="texto-suave">Duração: <%= v.duracao %> min</div>
+    </a>
+<% }) %>
+
+<!-- Filtro por empresa: o JavaScript envia o formulário ao trocar a opção -->
+<form action="/horarios" method="GET" class="mt-4">
+    <input type="hidden" name="origem" value="<%= rota.origem_id %>">
+    <input type="hidden" name="destino" value="<%= rota.destino_id %>">
+    <input type="hidden" name="data" value="<%= data %>">
+    <input type="hidden" name="periodo" value="<%= periodo %>">
+    <label for="empresa">Filtrar por empresa</label>
+    <select name="empresa" id="empresa" class="form-select" data-autosubmit>
+        <option value="">Todas as empresas</option>
+        <% empresas.forEach(e => { %>
+            <option value="<%= e %>" <%= e === empresa ? 'selected' : '' %>><%= e %></option>
+        <% }) %>
+    </select>
+</form>
+
+<%- include ('partials/footer.ejs', { ativo: 'buscar' }) %>
