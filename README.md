@@ -100,6 +100,7 @@ https://www.figma.com/design/8dnbi4e3bP7HmgR3Ew6EHA/Design-PI?node-id=0-1&p=f&t=
 <br>
 <hr>
 <br>
+
 ## Diagrama de casos de uso
 
 <br>
@@ -371,9 +372,6 @@ flowchart TB
 <br>
 <hr>
 <br>
-
-Site de consulta de horários e previsão de atrasos do transporte intermunicipal (Vale do Ribeira).
-Feito com **Node.js + Express + EJS + Sequelize + MySQL**, seguindo o mesmo padrão do projeto da aula 09.
 
 ## Como instalar
 
