@@ -4,13 +4,13 @@ import Rota from "../models/Rota.js";
 import Viagem from "../models/Viagem.js";
 import Parada from "../models/Parada.js";
 
-//const NOMES = ["Registro", "Cajati", "Jacupiranga", "Pariquera-Açu", "Iguape", "Sete Barras"];
-//const HORARIOS = ["07:15", "09:30", "11:45", "14:20"];
-//const ATRASOS = [0, 15, 0, 30];
-//const EMPRESAS = [
-//  { nome: "Valle Sul", linha: "203", duracao: 45 },
-// { nome: "Princesa dos Campos", linha: "108", duracao: 50 },
-//];
+const NOMES = ["Registro", "Cajati", "Jacupiranga", "Pariquera-Açu", "Iguape", "Sete Barras"];
+const HORARIOS = ["07:15", "09:30", "11:45", "14:20"];
+const ATRASOS = [0, 15, 0, 30];
+const EMPRESAS = [
+  { nome: "Valle Sul", linha: "203", duracao: 45 },
+ { nome: "Princesa dos Campos", linha: "108", duracao: 50 },
+];
 
 export default async function seed() {
   if ((await Cidade.count()) > 0) return;
