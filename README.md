@@ -368,6 +368,55 @@ flowchart TB
     class E1,L1,H1,R1,V1,P1 transporte
     class F1,A1,RP1 notificacao
 ```
+<br>
+<hr>
+<br>
+
+## Diagrama de sequência de fluxo
+```mermaid
+sequenceDiagram
+    autonumber
+    participant Voce as Você (no celular ou PC)
+    participant Sistema as Site Vale Rota (o sistema)
+    participant BD as Banco de dados (onde os dados ficam)
+
+    Note over Voce, BD: 1 · Procurar horários (achar a viagem que você quer)
+
+    Voce->Sistema: Você escolhe origem e destino e clica em Buscar viagens
+    Sistema->Sistema: Confere se você entrou
+    Sistema->BD: Procura a rota escolhida
+    BD-->Sistema: Rota encontrada
+    Sistema->BD: Anota sua busca no histórico
+    Sistema->BD: Pede os horários dessa rota
+    BD-->Sistema: Lista de horários
+    Sistema-->Voce: Mostra os horários, com a cor que indica se vai atrasar
+
+    Note over Voce, BD: 2 · Ver os detalhes (mapa, paradas e atraso esperado)
+
+    Voce->Sistema: Você toca em um horário
+    Sistema->BD: Pede a viagem e as paradas
+    BD-->Sistema: Viagem e paradas
+    Sistema->BD: Vê se a rota é favorita
+    BD-->Sistema: Sim ou não
+    Sistema-->Voce: Mostra o mapa, as paradas e quanto atraso é esperado
+
+    Note over Voce, BD: 3 · Favoritar a rota (guardar para achar rápido depois)
+
+    Voce->Sistema: Você toca em Favoritar esta rota
+    Sistema->Sistema: Confere se você tem conta
+    Sistema->BD: Vê se a rota já é favorita
+    BD-->Sistema: Ainda não
+    Sistema->BD: Guarda a rota nos favoritos
+    BD-->Sistema: Favorito guardado
+    Sistema-->Voce: Volta para a tela e mostra a estrela de favorita
+
+    Note over Voce, BD: 4 · Criar um aviso (ser avisado se o ônibus atrasar)
+
+    Voce->Sistema: Você escolhe o tipo de aviso e clica em Salvar alerta
+    Sistema->BD: Guarda o seu alerta
+    BD-->Sistema: Alerta guardado
+    Sistema-->Voce: Mostra a sua lista de alertas
+```
 
 <br>
 <hr>
